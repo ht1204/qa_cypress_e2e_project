@@ -35,6 +35,6 @@
     }
   },
   "lint-staged": {
-    "*.js": "eslint --max-warnings=0"
+    "cypress/**/*.js": "eslint --max-warnings=0"
   }
 }

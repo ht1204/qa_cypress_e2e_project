@@ -335,6 +335,12 @@ export default {
     context.commit("setProfile", profile);
   },
 
+  setFollowProfile(context, params) {
+    const profile = { ...context.getters.profile };
+    profile.following = !profile.following;
+    context.commit("setProfile", profile);
+  },
+
   setUser(context, user) {
     context.commit("setIsAuthenticated", true);
     context.commit("setUser", user);
