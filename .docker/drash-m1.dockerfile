@@ -9,3 +9,7 @@ RUN curl -fsSL -o /tmp/deno.zip https://github.com/denoland/deno/releases/downlo
   && unzip /tmp/deno.zip -d /usr/local/bin/ \
   && chmod +x /usr/local/bin/deno \
   && rm /tmp/deno.zip
+
+COPY src/deps.ts /tmp/deno-cache/deps.ts
+RUN deno cache --unstable /tmp/deno-cache/deps.ts \
+  && rm -rf /tmp/deno-cache
