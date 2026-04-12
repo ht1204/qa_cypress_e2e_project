@@ -15,6 +15,9 @@ async function clear() {
       'DELETE FROM article_comments;', { transaction: t }
     );
     await sequelize.query(
+      'DELETE FROM articles_favorites;', { transaction: t }
+    );
+    await sequelize.query(
       'DELETE FROM articles;', { transaction: t }
     );
     await sequelize.query(

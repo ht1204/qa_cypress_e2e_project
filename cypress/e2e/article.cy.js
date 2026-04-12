@@ -49,8 +49,13 @@ describe('Article', () => {
         'GET',
         `/articles/${createdArticle.slug}*`
       ).as('getArticle');
+      cy.intercept(
+        'POST',
+        '/users/login'
+      ).as('authCheck');
 
       cy.visit(`/#/articles/${createdArticle.slug}`);
+      cy.wait('@authCheck');
       cy.wait('@getArticle');
 
       cy.task('generateArticle').then((updatedArticle) => {
@@ -82,8 +87,13 @@ describe('Article', () => {
         'GET',
         `/articles/${createdArticle.slug}*`
       ).as('getArticle');
+      cy.intercept(
+        'POST',
+        '/users/login'
+      ).as('authCheck');
 
       cy.visit(`/#/articles/${createdArticle.slug}`);
+      cy.wait('@authCheck');
       cy.wait('@getArticle');
 
       articlePage.clickDeleteArticleBtn();
