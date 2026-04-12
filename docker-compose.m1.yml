@@ -46,7 +46,9 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: bash -c "npm i && npm run webpack & deno run --allow-net --allow-read --unstable app.ts"
+    command: >
+      bash -c "npm i && npm run webpack:build &&
+      deno run --allow-net --allow-read --unstable app.ts"
     networks:
       - drash-app-network
 

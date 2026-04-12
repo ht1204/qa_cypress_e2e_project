@@ -38,6 +38,7 @@
   },
   "scripts": {
     "webpack": "node_modules/.bin/webpack --hide-modules --env.environment=development",
+    "webpack:build": "node_modules/.bin/webpack --hide-modules --env.environment=production",
     "webpack-watch": "node_modules/.bin/webpack --hide-modules --watch --env.environment=development"
   },
   "dependencies": {
