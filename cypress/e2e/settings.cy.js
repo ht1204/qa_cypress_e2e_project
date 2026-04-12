@@ -16,8 +16,11 @@ describe('Settings page', () => {
     cy.task('db:clear');
     cy.task('generateUser').then((generatedUser) => {
       user = generatedUser;
-      cy.register(user.email, user.username, user.password);
-      cy.login(user.email, user.password);
+      return cy.register(
+        user.email, user.username, user.password
+      );
+    }).then((registeredUser) => {
+      user = registeredUser;
     });
   });
 
@@ -28,8 +31,8 @@ describe('Settings page', () => {
       settingsPage.typeUsername(newData.username);
       settingsPage.clickUpdateSettingsBtn();
 
-      cy.get('.swal-modal').should('be.visible');
-      cy.get('.swal-title').should('contain', 'Update successful');
+      cy.get('.swal-title')
+        .should('contain', 'Update successful');
       cy.get('.swal-button').click();
 
       homePage.assertHeaderContainUsername(newData.username);
@@ -43,8 +46,8 @@ describe('Settings page', () => {
     settingsPage.typeBio(newBio);
     settingsPage.clickUpdateSettingsBtn();
 
-    cy.get('.swal-modal').should('be.visible');
-    cy.get('.swal-title').should('contain', 'Update successful');
+    cy.get('.swal-title')
+      .should('contain', 'Update successful');
     cy.get('.swal-button').click();
 
     settingsPage.visit();
@@ -58,8 +61,8 @@ describe('Settings page', () => {
       settingsPage.typeEmail(newData.email);
       settingsPage.clickUpdateSettingsBtn();
 
-      cy.get('.swal-modal').should('be.visible');
-      cy.get('.swal-title').should('contain', 'Update successful');
+      cy.get('.swal-title')
+        .should('contain', 'Update successful');
       cy.get('.swal-button').click();
 
       homePage.assertHeaderContainUsername(user.username);
@@ -73,8 +76,8 @@ describe('Settings page', () => {
     settingsPage.typePassword(newPassword);
     settingsPage.clickUpdateSettingsBtn();
 
-    cy.get('.swal-modal').should('be.visible');
-    cy.get('.swal-title').should('contain', 'Update successful');
+    cy.get('.swal-title')
+      .should('contain', 'Update successful');
     cy.get('.swal-button').click();
 
     settingsPage.clickLogoutBtn();

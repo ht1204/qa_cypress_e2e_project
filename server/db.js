@@ -1,28 +1,34 @@
 const { Sequelize } = require('sequelize');
 
-const sequilize = new Sequelize('realworld', 'user', 'userpassword', {
-  host: 'localhost',
-  dialect: 'postgres',
-  port: 54320,
-});
+const sequelize = new Sequelize(
+  'realworld', 'user', 'userpassword', {
+    host: 'localhost',
+    dialect: 'postgres',
+    port: 54320,
+  }
+);
 
 async function clear() {
-  const t = await sequilize.transaction();
-
+  const t = await sequelize.transaction();
   try {
-    await sequilize.query('DELETE FROM articles;');
-    await sequilize.query('DELETE FROM article_comments;');
-    await sequilize.query('DELETE FROM sessions;');
-    await sequilize.query('DELETE FROM users;');
-
+    await sequelize.query(
+      'DELETE FROM article_comments;', { transaction: t }
+    );
+    await sequelize.query(
+      'DELETE FROM articles;', { transaction: t }
+    );
+    await sequelize.query(
+      'DELETE FROM sessions;', { transaction: t }
+    );
+    await sequelize.query(
+      'DELETE FROM users;', { transaction: t }
+    );
     await t.commit();
+    return null;
   } catch (error) {
     await t.rollback();
+    throw error;
   }
 }
 
-module.exports = { clear, seed };
-
-function seed() {
-  // No seed data defined
-}
+module.exports = { clear };

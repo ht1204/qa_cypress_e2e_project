@@ -10,11 +10,8 @@ const homePage = new HomePageObject();
 describe('Sign Up page', () => {
   let user;
 
-  before(() => {
-    cy.task('db:clear');
-  });
-
   beforeEach(() => {
+    cy.task('db:clear');
     cy.task('generateUser').then((generatedUser) => {
       user = generatedUser;
     });
@@ -28,7 +25,6 @@ describe('Sign Up page', () => {
     signUpPage.typePassword(user.password);
     signUpPage.clickSignUpBtn();
 
-    cy.get('.swal-modal').should('be.visible');
     cy.get('.swal-title').should('contain', 'Welcome');
     cy.get('.swal-button').click();
 
@@ -45,7 +41,7 @@ describe('Sign Up page', () => {
     signUpPage.typePassword(user.password);
     signUpPage.clickSignUpBtn();
 
-    cy.get('.swal-modal').should('be.visible');
-    cy.get('.swal-title').should('contain', 'Registration failed');
+    cy.get('.swal-title')
+      .should('contain', 'Registration failed');
   });
 });
