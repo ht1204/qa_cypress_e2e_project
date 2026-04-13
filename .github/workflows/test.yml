@@ -22,7 +22,7 @@ jobs:
       with:
         node-version: 20
 
-    - name: Build the Docker image
+    - name: Build and start containers
       run: docker compose up --build -d
 
     - name: Install packages
@@ -30,7 +30,18 @@ jobs:
 
     - name: Wait for app to be ready
       run: |
-        npx wait-on http://localhost:1667 -t 300000
+        for i in $(seq 1 90); do
+          if curl -sf http://localhost:1667 > /dev/null 2>&1; then
+            echo "App is ready!"
+            exit 0
+          fi
+          echo "[$i/90] Waiting for app..."
+          sleep 10
+        done
+        echo "App failed to start."
+        docker compose logs drash
+        docker compose logs postgres
+        exit 1
 
     - name: Run tests
       run: npm run test
