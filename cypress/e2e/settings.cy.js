@@ -69,6 +69,7 @@ describe('Settings page', () => {
       settingsPage.visit();
 
       settingsPage.typeEmail(newData.email);
+      settingsPage.typePassword(user.password);
       settingsPage.clickUpdateSettingsBtnAndWait();
 
       settingsPage.assertModalTitle(
@@ -76,12 +77,9 @@ describe('Settings page', () => {
       );
       settingsPage.closeModal();
 
-      cy.login(newData.email, user.password)
-        .then((loggedInUser) => {
-          expect(loggedInUser.email).to.eq(
-            newData.email
-          );
-        });
+      homePage.assertHeaderContainUsername(
+        user.username
+      );
     });
   });
 

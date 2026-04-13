@@ -40,6 +40,7 @@ services:
       dockerfile: .docker/drash-m1.dockerfile
     volumes:
       - ./src:/var/www/src
+      - /var/www/src/node_modules
     working_dir: /var/www/src
     ports:
       - "1667:1667"
@@ -47,7 +48,7 @@ services:
       postgres:
         condition: service_healthy
     command: >
-      bash -c "npm i && npm run webpack:build &&
+      bash -c "npm run webpack:build &&
       deno run --allow-net --allow-read --unstable app.ts"
     networks:
       - drash-app-network

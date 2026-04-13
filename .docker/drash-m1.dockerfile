@@ -13,3 +13,7 @@ RUN curl -fsSL -o /tmp/deno.zip https://github.com/denoland/deno/releases/downlo
 COPY src/deps.ts /tmp/deno-cache/deps.ts
 RUN deno cache --unstable /tmp/deno-cache/deps.ts \
   && rm -rf /tmp/deno-cache
+
+WORKDIR /var/www/src
+COPY src/package.json ./
+RUN npm install
