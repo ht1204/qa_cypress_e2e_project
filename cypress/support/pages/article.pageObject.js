@@ -9,16 +9,29 @@ class ArticlePageObject extends PageObject {
     return cy.getByDataCy('delete-article-btn');
   }
 
+  get articleTitle() {
+    return cy.get('.article-page h1');
+  }
+
+  get articleBody() {
+    return cy.get('.article-content .col-xs-12 div')
+      .first();
+  }
+
   clickEditArticleBtn() {
-    this.editArticleBtn.click();
+    return this.editArticleBtn.click();
   }
 
   clickDeleteArticleBtn() {
-    this.deleteArticleBtn.click();
+    return this.deleteArticleBtn.click();
   }
 
   assertArticleTitle(title) {
-    cy.get('.article-page h1').should('contain', title);
+    return this.articleTitle.should('contain', title);
+  }
+
+  assertArticleBody(body) {
+    return this.articleBody.should('contain', body);
   }
 }
 

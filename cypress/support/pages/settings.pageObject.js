@@ -28,27 +28,33 @@ class SettingsPageObject extends PageObject {
   }
 
   typeUsername(username) {
-    this.usernameField.clear().type(username);
+    return this.usernameField.clear().type(username);
   }
 
   typeBio(bio) {
-    this.bioField.clear().type(bio);
+    return this.bioField.clear().type(bio);
   }
 
   typeEmail(email) {
-    this.emailField.clear().type(email);
+    return this.emailField.clear().type(email);
   }
 
   typePassword(password) {
-    this.passwordField.clear().type(password);
+    return this.passwordField.clear().type(password);
+  }
+
+  clickUpdateSettingsBtnAndWait() {
+    cy.intercept('POST', '/user').as('updateRequest');
+    this.updateSettingsBtn.click();
+    return cy.wait('@updateRequest');
   }
 
   clickUpdateSettingsBtn() {
-    this.updateSettingsBtn.click();
+    return this.updateSettingsBtn.click();
   }
 
   clickLogoutBtn() {
-    this.logoutBtn.click();
+    return this.logoutBtn.click();
   }
 }
 

@@ -20,19 +20,39 @@ class ArticleEditPageObject extends PageObject {
   }
 
   typeTitle(title) {
-    this.titleField.clear().type(title);
+    return this.titleField.clear().type(title);
   }
 
   typeDescription(description) {
-    this.descriptionField.clear().type(description);
+    return this.descriptionField.clear().type(description);
   }
 
   typeBody(body) {
-    this.bodyField.clear().type(body);
+    return this.bodyField.clear().type(body);
+  }
+
+  typeTags(tags) {
+    cy.get('.ti-new-tag-input')
+      .clear();
+    tags.forEach((tag) => {
+      cy.get('.ti-new-tag-input').type(
+        `${tag}{enter}`
+      );
+    });
+    return this;
+  }
+
+  fillForm({ title, description, body, tags }) {
+    this.typeTitle(title);
+    this.typeDescription(description);
+    this.typeBody(body);
+    if (tags && tags.length) {
+      this.typeTags(tags);
+    }
   }
 
   clickPublishBtn() {
-    this.publishBtn.click();
+    return this.publishBtn.click();
   }
 }
 

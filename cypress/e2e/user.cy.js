@@ -1,7 +1,8 @@
 /// <reference types='cypress' />
 /// <reference types='../support' />
 
-import ProfilePageObject from '../support/pages/profile.pageObject';
+import ProfilePageObject
+  from '../support/pages/profile.pageObject';
 
 const profilePage = new ProfilePageObject();
 
@@ -31,7 +32,7 @@ describe('User', () => {
     });
   });
 
-  it('should be able to follow the another user', () => {
+  it('should follow another user', () => {
     cy.login(user.email, user.password);
     profilePage.visit(targetUser.username);
 
@@ -41,7 +42,7 @@ describe('User', () => {
     profilePage.assertUnfollowBtnVisible();
   });
 
-  it('should be able to unfollow the another user', () => {
+  it('should unfollow another user', () => {
     cy.login(user.email, user.password);
     profilePage.visit(targetUser.username);
 

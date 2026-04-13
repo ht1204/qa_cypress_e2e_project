@@ -1,8 +1,10 @@
 /// <reference types='cypress' />
 /// <reference types='../support' />
 
-import SignUpPageObject from '../support/pages/signUp.pageObject';
-import HomePageObject from '../support/pages/home.pageObject';
+import SignUpPageObject
+  from '../support/pages/signUp.pageObject';
+import HomePageObject
+  from '../support/pages/home.pageObject';
 
 const signUpPage = new SignUpPageObject();
 const homePage = new HomePageObject();
@@ -17,21 +19,20 @@ describe('Sign Up page', () => {
     });
   });
 
-  it('should provide an ability to sign up with valid credentials', () => {
+  it('should sign up with valid credentials', () => {
     signUpPage.visit();
 
-    signUpPage.typeUsername(user.username);
-    signUpPage.typeEmail(user.email);
-    signUpPage.typePassword(user.password);
+    signUpPage.fillForm(user);
     signUpPage.clickSignUpBtn();
 
-    cy.get('.swal-title').should('contain', 'Welcome');
+    cy.get('.swal-title')
+      .should('contain', 'Welcome');
     cy.get('.swal-button').click();
 
     homePage.assertHeaderContainUsername(user.username);
   });
 
-  it('should not sign up with an already taken email', () => {
+  it('should not sign up with taken email', () => {
     cy.register(user.email, user.username, user.password);
 
     signUpPage.visit();

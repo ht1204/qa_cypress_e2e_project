@@ -28,9 +28,9 @@ Cypress.Commands.add('login', (email, password) => {
   return cy.request('POST', '/users/login', {
     user: { email, password }
   }).then((response) => {
-    const token = response.body.user.token;
-    return cy.setCookie('drash_sess', token)
-      .then(() => cy.wrap(response.body.user));
+    const user = response.body.user;
+    return cy.setCookie('drash_sess', user.token)
+      .then(() => cy.wrap({ ...user, password }));
   });
 });
 

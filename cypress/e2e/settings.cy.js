@@ -1,13 +1,19 @@
 /// <reference types='cypress' />
 /// <reference types='../support' />
 
-import SettingsPageObject from '../support/pages/settings.pageObject';
-import HomePageObject from '../support/pages/home.pageObject';
-import SignInPageObject from '../support/pages/signIn.pageObject';
+import SettingsPageObject
+  from '../support/pages/settings.pageObject';
+import HomePageObject
+  from '../support/pages/home.pageObject';
+import SignInPageObject
+  from '../support/pages/signIn.pageObject';
+import ProfilePageObject
+  from '../support/pages/profile.pageObject';
 
 const settingsPage = new SettingsPageObject();
 const homePage = new HomePageObject();
 const signInPage = new SignInPageObject();
+const profilePage = new ProfilePageObject();
 
 describe('Settings page', () => {
   let user;
@@ -29,13 +35,16 @@ describe('Settings page', () => {
       settingsPage.visit();
 
       settingsPage.typeUsername(newData.username);
-      settingsPage.clickUpdateSettingsBtn();
+      settingsPage.clickUpdateSettingsBtnAndWait();
 
-      cy.get('.swal-title')
-        .should('contain', 'Update successful');
-      cy.get('.swal-button').click();
+      settingsPage.assertModalTitle(
+        'Update successful'
+      );
+      settingsPage.closeModal();
 
-      homePage.assertHeaderContainUsername(newData.username);
+      homePage.assertHeaderContainUsername(
+        newData.username
+      );
     });
   });
 
@@ -44,28 +53,35 @@ describe('Settings page', () => {
     settingsPage.visit();
 
     settingsPage.typeBio(newBio);
-    settingsPage.clickUpdateSettingsBtn();
+    settingsPage.clickUpdateSettingsBtnAndWait();
 
-    cy.get('.swal-title')
-      .should('contain', 'Update successful');
-    cy.get('.swal-button').click();
+    settingsPage.assertModalTitle(
+      'Update successful'
+    );
+    settingsPage.closeModal();
 
-    settingsPage.visit();
-    settingsPage.bioField.should('contain', newBio);
+    profilePage.visit(user.username);
+    profilePage.assertBioContains(newBio);
   });
 
-  it('should provide an ability to update an email', () => {
+  it('should provide an ability to update email', () => {
     cy.task('generateUser').then((newData) => {
       settingsPage.visit();
 
       settingsPage.typeEmail(newData.email);
-      settingsPage.clickUpdateSettingsBtn();
+      settingsPage.clickUpdateSettingsBtnAndWait();
 
-      cy.get('.swal-title')
-        .should('contain', 'Update successful');
-      cy.get('.swal-button').click();
+      settingsPage.assertModalTitle(
+        'Update successful'
+      );
+      settingsPage.closeModal();
 
-      homePage.assertHeaderContainUsername(user.username);
+      cy.login(newData.email, user.password)
+        .then((loggedInUser) => {
+          expect(loggedInUser.email).to.eq(
+            newData.email
+          );
+        });
     });
   });
 
@@ -74,11 +90,12 @@ describe('Settings page', () => {
     settingsPage.visit();
 
     settingsPage.typePassword(newPassword);
-    settingsPage.clickUpdateSettingsBtn();
+    settingsPage.clickUpdateSettingsBtnAndWait();
 
-    cy.get('.swal-title')
-      .should('contain', 'Update successful');
-    cy.get('.swal-button').click();
+    settingsPage.assertModalTitle(
+      'Update successful'
+    );
+    settingsPage.closeModal();
 
     settingsPage.clickLogoutBtn();
     cy.url().should('include', '/#/');

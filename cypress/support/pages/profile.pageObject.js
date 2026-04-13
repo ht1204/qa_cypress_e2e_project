@@ -13,20 +13,37 @@ class ProfilePageObject extends PageObject {
     return cy.getByDataCy('unfollow-btn');
   }
 
+  get bioField() {
+    return cy.get('.user-info p');
+  }
+
+  get articlePreview() {
+    return cy.get('.article-preview');
+  }
+
   clickFollowBtn() {
-    this.followBtn.click();
+    return this.followBtn.click();
   }
 
   clickUnfollowBtn() {
-    this.unfollowBtn.click();
+    return this.unfollowBtn.click();
   }
 
   assertFollowBtnVisible() {
-    this.followBtn.should('be.visible');
+    return this.followBtn.should('be.visible');
   }
 
   assertUnfollowBtnVisible() {
-    this.unfollowBtn.should('be.visible');
+    return this.unfollowBtn.should('be.visible');
+  }
+
+  assertBioContains(bio) {
+    return this.bioField.should('contain', bio);
+  }
+
+  assertNoArticles() {
+    return this.articlePreview
+      .should('contain', 'No articles');
   }
 }
 

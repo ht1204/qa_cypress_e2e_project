@@ -1,8 +1,10 @@
 /// <reference types='cypress' />
 /// <reference types='../support' />
 
-import ArticleEditPageObject from '../support/pages/articleEdit.pageObject';
-import ArticlePageObject from '../support/pages/article.pageObject';
+import ArticleEditPageObject
+  from '../support/pages/articleEdit.pageObject';
+import ArticlePageObject
+  from '../support/pages/article.pageObject';
 
 const articleEditPage = new ArticleEditPageObject();
 const articlePage = new ArticlePageObject();
@@ -49,13 +51,8 @@ describe('Article', () => {
         'GET',
         `/articles/${createdArticle.slug}*`
       ).as('getArticle');
-      cy.intercept(
-        'POST',
-        '/users/login'
-      ).as('authCheck');
 
       cy.visit(`/#/articles/${createdArticle.slug}`);
-      cy.wait('@authCheck');
       cy.wait('@getArticle');
 
       cy.task('generateArticle').then((updatedArticle) => {
@@ -71,7 +68,9 @@ describe('Article', () => {
         articleEditPage.clickPublishBtn();
 
         cy.url().should('include', '/articles/');
-        articlePage.assertArticleTitle(updatedArticle.title);
+        articlePage.assertArticleTitle(
+          updatedArticle.title
+        );
       });
     });
   });
@@ -87,13 +86,8 @@ describe('Article', () => {
         'GET',
         `/articles/${createdArticle.slug}*`
       ).as('getArticle');
-      cy.intercept(
-        'POST',
-        '/users/login'
-      ).as('authCheck');
 
       cy.visit(`/#/articles/${createdArticle.slug}`);
-      cy.wait('@authCheck');
       cy.wait('@getArticle');
 
       articlePage.clickDeleteArticleBtn();

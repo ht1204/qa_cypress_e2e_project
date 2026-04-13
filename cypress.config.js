@@ -8,19 +8,25 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       on('task', {
         generateUser() {
-          const randomNumber = Math.ceil(Math.random(1000) * 1000);
+          const randomNumber = Math.ceil(Math.random() * 1000);
+          const userName = `${faker.person.firstName()
+            .replace(/[^\w]+/g, '')
+            .toLowerCase()}${randomNumber}`;
+
           return {
-            username: faker.person.firstName() + `${randomNumber}`,
-            email: 'test' + `${randomNumber}` + '@mail.com',
+            username: userName,
+            email: `${userName}@mail.com`,
             password: '12345Qwert!'
           };
         },
         generateArticle() {
           return {
-            title: faker.lorem.word(),
+            title: faker.lorem.words(),
             description: faker.lorem.words(),
-            body: faker.lorem.words(),
-            tag: faker.lorem.word()
+            body: faker.lorem.paragraph(),
+            tags: faker.lorem.words(
+              { min: 2, max: 5 }
+            ).split(' ')
           };
         },
         'db:clear'() {
