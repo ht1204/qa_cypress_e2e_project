@@ -25,12 +25,12 @@ module.exports = defineConfig({
             description: faker.lorem.words(),
             body: faker.lorem.paragraph(),
             tags: faker.lorem.words(
-              { min: 2, max: 5 }
+              faker.number.int({ min: 2, max: 5 })
             ).split(' ')
           };
         },
         'db:clear'() {
-          return clear().then(() => null);
+          return clear();
         }
       });
     }

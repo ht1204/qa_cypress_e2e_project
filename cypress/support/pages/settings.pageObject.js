@@ -4,27 +4,27 @@ class SettingsPageObject extends PageObject {
   url = '/#/settings';
 
   get usernameField() {
-    return cy.getByDataCy('username-settings');
+    return cy.getByDataQa('username-settings');
   }
 
   get bioField() {
-    return cy.getByDataCy('bio-settings');
+    return cy.getByDataQa('bio-settings');
   }
 
   get emailField() {
-    return cy.getByDataCy('email-settings');
+    return cy.getByDataQa('email-settings');
   }
 
   get passwordField() {
-    return cy.getByDataCy('password-settings');
+    return cy.getByDataQa('password-settings');
   }
 
   get updateSettingsBtn() {
-    return cy.getByDataCy('update-settings-btn');
+    return cy.getByDataQa('update-settings-btn');
   }
 
   get logoutBtn() {
-    return cy.getByDataCy('logout-btn');
+    return cy.getByDataQa('logout-btn');
   }
 
   typeUsername(username) {

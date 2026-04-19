@@ -2,9 +2,9 @@ const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(
   'realworld', 'user', 'userpassword', {
-    host: 'localhost',
+    host: process.env.DB_HOST || 'localhost',
     dialect: 'postgres',
-    port: 54320,
+    port: parseInt(process.env.DB_PORT, 10) || 54320,
   }
 );
 

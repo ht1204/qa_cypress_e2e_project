@@ -2,11 +2,11 @@ import PageObject from '../PageObject';
 
 class ArticlePageObject extends PageObject {
   get editArticleBtn() {
-    return cy.getByDataCy('edit-article-btn').first();
+    return cy.getByDataQa('edit-article-btn').first();
   }
 
   get deleteArticleBtn() {
-    return cy.getByDataCy('delete-article-btn').first();
+    return cy.getByDataQa('delete-article-btn').first();
   }
 
   get articleTitle() {

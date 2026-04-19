@@ -4,19 +4,19 @@ class ArticleEditPageObject extends PageObject {
   url = '/#/editor';
 
   get titleField() {
-    return cy.getByDataCy('title-input');
+    return cy.getByDataQa('title-input');
   }
 
   get descriptionField() {
-    return cy.getByDataCy('description-input');
+    return cy.getByDataQa('description-input');
   }
 
   get bodyField() {
-    return cy.getByDataCy('body-input');
+    return cy.getByDataQa('body-input');
   }
 
   get publishBtn() {
-    return cy.getByDataCy('publish-btn');
+    return cy.getByDataQa('publish-btn');
   }
 
   typeTitle(title) {

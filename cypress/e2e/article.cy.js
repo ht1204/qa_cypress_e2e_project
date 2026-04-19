@@ -22,8 +22,8 @@ describe('Article', () => {
       );
     }).then((registeredUser) => {
       user = registeredUser;
-    });
-    cy.task('generateArticle').then((generatedArticle) => {
+      return cy.task('generateArticle');
+    }).then((generatedArticle) => {
       article = generatedArticle;
     });
   });

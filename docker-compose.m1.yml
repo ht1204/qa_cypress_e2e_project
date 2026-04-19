@@ -40,7 +40,7 @@ services:
       dockerfile: .docker/drash-m1.dockerfile
     volumes:
       - ./src:/var/www/src
-      - /var/www/src/node_modules
+      - node_modules:/var/www/src/node_modules
     working_dir: /var/www/src
     ports:
       - "1667:1667"
@@ -56,3 +56,6 @@ services:
 networks:
   drash-app-network:
     driver: bridge
+
+volumes:
+  node_modules:

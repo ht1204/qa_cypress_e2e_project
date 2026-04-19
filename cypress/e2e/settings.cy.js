@@ -111,6 +111,6 @@ describe('Settings page', () => {
     settingsPage.clickLogoutBtn();
 
     cy.url().should('include', '/#/');
-    cy.getByDataCy('username-link').should('not.exist');
+    cy.getByDataQa('username-link').should('not.exist');
   });
 });

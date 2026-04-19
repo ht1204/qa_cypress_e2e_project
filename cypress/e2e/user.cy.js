@@ -14,21 +14,21 @@ describe('User', () => {
     cy.task('db:clear');
     cy.task('generateUser').then((generatedUser) => {
       user = generatedUser;
-      return cy.register(
+      return cy.createUser(
         user.email, user.username, user.password
       );
-    }).then((registeredUser) => {
-      user = registeredUser;
-    });
-    cy.task('generateUser').then((generatedTargetUser) => {
+    }).then((createdUser) => {
+      user = createdUser;
+      return cy.task('generateUser');
+    }).then((generatedTargetUser) => {
       targetUser = generatedTargetUser;
-      return cy.register(
+      return cy.createUser(
         targetUser.email,
         targetUser.username,
         targetUser.password
       );
-    }).then((registeredTarget) => {
-      targetUser = registeredTarget;
+    }).then((createdTarget) => {
+      targetUser = createdTarget;
     });
   });
 

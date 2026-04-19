@@ -1,6 +1,26 @@
-Cypress.Commands.add('getByDataCy', (selector) => {
-  return cy.get(`[data-cy="${selector}"]`);
+Cypress.Commands.add('getByDataQa', (selector) => {
+  return cy.get(`[data-qa="${selector}"]`);
 });
+
+Cypress.Commands.add(
+  'createUser',
+  (
+    email = 'riot@qa.team',
+    username = 'riot',
+    password = '12345Qwert!'
+  ) => {
+    return cy.request('POST', '/users', {
+      email,
+      username,
+      password
+    }).then((response) => {
+      return cy.wrap({
+        ...response.body.user,
+        password
+      });
+    });
+  }
+);
 
 Cypress.Commands.add(
   'register',
@@ -46,7 +66,9 @@ Cypress.Commands.add('createArticle', (articleData) => {
           title: articleData.title,
           description: articleData.description,
           body: articleData.body,
-          tags: articleData.tags || ''
+          tags: Array.isArray(articleData.tags)
+            ? articleData.tags.join(',')
+            : (articleData.tags || '')
         }
       },
       headers: {

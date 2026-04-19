@@ -2,8 +2,13 @@
 
 declare namespace Cypress {
   interface Chainable<Subject> {
-    getByDataCy(
+    getByDataQa(
       selector: string
+    ): Chainable<any>;
+    createUser(
+      email: string,
+      username: string,
+      password: string
     ): Chainable<any>;
     register(
       email: string,
@@ -20,7 +25,7 @@ declare namespace Cypress {
         title: string;
         description: string;
         body: string;
-        tags?: string;
+        tags?: string | string[];
       }
     ): Chainable<any>;
   }

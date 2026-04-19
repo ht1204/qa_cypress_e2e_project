@@ -33,7 +33,9 @@ describe('Sign Up page', () => {
   });
 
   it('should not sign up with taken email', () => {
-    cy.register(user.email, user.username, user.password);
+    cy.createUser(
+      user.email, user.username, user.password
+    );
 
     signUpPage.visit();
 

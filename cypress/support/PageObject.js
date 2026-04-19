@@ -1,6 +1,6 @@
 class PageObject {
   get usernameLink() {
-    return cy.getByDataCy('username-link');
+    return cy.getByDataQa('username-link');
   }
 
   visit(url) {
